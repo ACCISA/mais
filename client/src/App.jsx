@@ -6,7 +6,6 @@ import RegisterPage from "./pages/RegisterPage";
 import IndexPage from "./pages/IndexPage";
 import DashboardPage from "./pages/DashboardPage"
 import axios from "axios";
-import { UserContextProvider } from "./UserContext";
 import {RequireAuth} from "react-auth-kit"
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
 
   
   return (
-    <UserContextProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<IndexPage />} />
@@ -24,7 +22,6 @@ function App() {
           <Route path="/dashboard" element={<RequireAuth loginPath="/login"> <DashboardPage/></RequireAuth>} />
         </Route>
       </Routes>
-    </UserContextProvider>
   );
 }
 //hello
