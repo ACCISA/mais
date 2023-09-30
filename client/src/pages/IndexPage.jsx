@@ -1,15 +1,16 @@
-import { UserContext } from "../UserContext";
 import { useContext } from "react";
+import {useAuthUser} from 'react-auth-kit'
+
 import LoginRegister from "../components/index/LoginRegister";
 import houseImg from "../images/houseMain.jpg"
 export default function IndexPage() {
-  const { user, setUser } = useContext(UserContext);
-  console.log(user);
+  const auth = useAuthUser()
+  
   return (
     <>
       {" "}
-      {user && <div>LoggedIn</div>}
-      {!user && <div>NotLoggedIn</div>}
+      {auth() && <div>LoggedIn</div>}
+      {!auth() && <div>NotLoggedIn</div>}
       <LoginRegister>
         
       </LoginRegister>

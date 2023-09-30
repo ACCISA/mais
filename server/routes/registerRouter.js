@@ -5,6 +5,8 @@ const registerRouter = async (req, res) => {
   const { email, password } = req.body;
   const secret = bcrypt.genSaltSync(10);
 
+  console.log(email)
+  console.log(password)
   try {
     const userDoc = await User.create({
       email,

@@ -6,32 +6,39 @@ import {
   } from "flowbite-react";
   import { useState } from "react";
   import axios from "axios"
+  import { Navigate } from "react-router-dom";
 export default function RegisterForm(){
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordC, setPasswordC] = useState("");
     const [match, setMatch] = useState(true)
-    const [usernameDupe, setUsernameDupe] = useState(false)
+    const [redirect, setRedirect] = useState(false)
+    const [emailDupe, setEmailDupe] = useState(false)
     const handleRegister = ev => {
         ev.preventDefault()
 
         if (!match) return;
 
         axios.post("/register",{
-          username:username,
+          email:email,
           password:password
         })
         .then(({res}) => {
+          setRedirect(true)
           console.log('worked')
+
         })
         .catch((err) => {
           if (err.response.status == 422) {
-            setUsernameDupe(true)
+            setEmailDupe(true)
             return;
           }
         })
     }
-
+    console.log('ran')
+    if (redirect){
+      return <Navigate to={'/dashboard'}/>
+    }
     return (
         <>
         <div className="flex h-screen justify-center items-center -mt-8">
@@ -41,12 +48,12 @@ export default function RegisterForm(){
                 <Label htmlFor="email1" value="Email" />
               </div>
               <TextInput
-                value={username}
+                value={email}
                 onChange={(ev) => {
-                  if (usernameDupe){
-                    setUsernameDupe(false)
+                  if (emailDupe){
+                    setEmailDupe(false)
                   }
-                  setUsername(ev.target.value);
+                  setEmail(ev.target.value);
                 }}
                 id="email1"
                 type="text"
@@ -95,9 +102,9 @@ export default function RegisterForm(){
               {/* <Checkbox id="remember" />
               <Label htmlFor="remember">Remember me</Label> */}
             </div>
-            {usernameDupe && (<Alert color="failure">
+            {emailDupe && (<Alert color="failure">
               <span>
-                <span className="font-medium">Alert!</span> This username is already taken.
+                <span className="font-medium">Alert!</span> This email is already taken.
               </span>
             </Alert>)}
             {!match && (<Alert color="failure">
