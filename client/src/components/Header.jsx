@@ -4,10 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const auth = useAuthUser();
-  const signOut = useSignOut()
+  const signOut = useSignOut();
   // useNavigate
-  
-
 
   return (
     <Navbar fluid={true} rounded={true}>
@@ -34,17 +32,13 @@ export default function Header() {
       <div className="flex md:order-2">
         {auth() && (
           <Navbar.Collapse className="mt-3 items-center justify-center">
-            <Navbar.Link className="cursor-pointer" onClick={signOut}>Logout</Navbar.Link>
+            <Navbar.Link className="cursor-pointer" onClick={signOut}>
+              Logout
+            </Navbar.Link>
           </Navbar.Collapse>
         )}
 
-        {!auth() && <Button>Get started</Button>}
-        {auth() && auth().data.root && (
-          <Link to={"/root"}>
-            <Button className="ml-2">Admin Panel</Button>
-          </Link>
-        )}
-        {auth() && !auth().data.root && (
+        {auth() && (
           <Link to={"/dashboard"}>
             <Button className="ml-2">Dashboard</Button>
           </Link>
