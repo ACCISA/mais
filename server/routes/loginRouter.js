@@ -5,9 +5,9 @@ const mongoose = require("mongoose");
 
 const loginRouter = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   const userDoc = await User.findOne({ email });
-  console.log(email);
-  console.log(password);
+
   if (userDoc) {
     const passOk = bcrypt.compareSync(password, userDoc.password);
     if (passOk) {

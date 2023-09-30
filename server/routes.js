@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const loginRouter = require("./routes/loginRouter");
 const registerRouter = require("./routes/registerRouter");
 const housesRouter = require("./routes/housesRouter");
+const getFavouritesRouter = require("./routes/getFavouritesRouter");
 
 module.exports = function (app) {
   app.use(express.json());
@@ -22,4 +23,5 @@ module.exports = function (app) {
 
   app.post("/login", loginRouter);
   app.post("/register", registerRouter);
+  app.post("/get_favourites", getFavouritesRouter);
 };
