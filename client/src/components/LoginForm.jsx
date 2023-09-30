@@ -1,17 +1,18 @@
 import axios from "axios";
 import { Button, Label, TextInput, Alert } from "flowbite-react";
-import { useContext, useState } from "react";
-import { UserContext } from "../UserContext";
+import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useSignIn } from "react-auth-kit";
+import {useAuthUser} from 'react-auth-kit'
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const signIn = useSignIn();
   const [password, setPassword] = useState("");
   const [invalidCred, setInvalidCred] = useState(false);
-  const { user, setUser, root, setRoot } = useContext(UserContext);
   const [redirect, setRedirect] = useState(false);
+  const auth = useAuthUser()
+
   const handleLogin = (ev) => {
     ev.preventDefault();
     console.log(email + " " + password);
@@ -21,10 +22,11 @@ export default function LoginForm() {
         password,
       })
       .then((res) => {
-        const data = res.data.userDoc;
+        const data = res.data;
         console.log(res.status);
 
         if (res.status == 200) {
+          console.log("signed in")
           signIn({
             token: res.data.token,
             expiresIn: 3600,
@@ -32,11 +34,10 @@ export default function LoginForm() {
             authState: { data },
           });
           console.log("Sign in successfull");
-          setUser(email);
           setRedirect(true);
           return;
         }
-
+        console.log("asdasda")
         setInvalidCred(true);
       })
       .catch((err) => {
