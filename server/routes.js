@@ -18,8 +18,8 @@ module.exports = function (app) {
     })
   );
 
-  app.get("/login", loginRouter);
   app.get("/houses", housesRouter);
 
+  app.post("/login", loginRouter);
   app.post("/register", registerRouter);
 };
