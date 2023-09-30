@@ -13,6 +13,7 @@ export default function House({ house }) {
         <p>Owners Email: {house.ownerEmail}</p>
         <button>Interested</button>
       </div>
+      
     </>
   );
 }
