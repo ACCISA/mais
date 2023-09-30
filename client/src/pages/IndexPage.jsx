@@ -14,7 +14,8 @@ export default function IndexPage() {
       <LoginRegister>
         
       </LoginRegister>
-      <div><img src={houseImg} alt="lol" /></div>    
+      <div className="imageBg"><img src={houseImg} alt="lol" /></div> 
+
         
       </>
   );
