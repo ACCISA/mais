@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  Button,
-  Label,
-  TextInput,
-  Alert,
-} from "flowbite-react";
+import { Button, Label, TextInput, Alert } from "flowbite-react";
 import { useContext, useState } from "react";
 import { UserContext } from "../UserContext";
 import { Navigate } from "react-router-dom";
@@ -20,19 +15,19 @@ export default function LoginForm() {
   const handleLogin = (ev) => {
     ev.preventDefault();
     axios
-      .post("/login", {
+      .get("/login", {
         username,
         password,
       })
       .then((res) => {
         console.log(res);
-        const data = res.data.userDoc
-        console.log(data)
+        const data = res.data.userDoc;
+        console.log(data);
         signIn({
           token: res.data.token,
           expiresIn: 3600,
           tokenType: "Bearer",
-          authState: { data},
+          authState: { data },
         });
 
         console.log(res);
@@ -44,7 +39,6 @@ export default function LoginForm() {
         setInvalidCred(true);
       });
   };
-
 
   if (redirect) {
     return <Navigate to={"/dashboard"} />;
@@ -75,7 +69,7 @@ export default function LoginForm() {
             </div>
             <TextInput
               id="password1"
-              type="password" 
+              type="password"
               required={true}
               value={password}
               onChange={(ev) => {
