@@ -1,19 +1,29 @@
-import { useContext } from "react";
-import { useAuthUser } from "react-auth-kit";
+import React, { useEffect, useState } from "react";
 import House from "../components/dashboard/House";
+import houseImg from "../images/house.jpg";
+import '../styles.css';
 
 export default function DashboardPage() {
-  const auth = useAuthUser();
-  // auth().data
-
+  const [houses, setHouses] = useState([]);
+  
+  useEffect(() => {
+    // Fetch data from the backend API
+    fetch("/houses")
+      .then((response) => response.json())
+      .then((data) => setHouses(data));
+  }, []);
+  
   return (
     <>
-      Your Dashboard
-      <House />
-      <House />
-      <House />
-      <House />
-      <House />
+      <div class="main_content">
+        <div class="content">
+          <div class="pet-list">
+            {houses.map((house) => (
+              <House key={house.id} owner={house.owner} />
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
