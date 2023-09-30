@@ -3,11 +3,12 @@ import { useContext } from "react";
 import LoginRegister from "../components/index/LoginRegister";
 export default function IndexPage() {
   const { user, setUser } = useContext(UserContext);
+  console.log(user);
   return (
     <>
       {" "}
-      {user && <div className="bg-red-500">LoggedIn</div>}
-      {!user && <div className="bg-red-500">NotLoggedIn</div>}
+      {user && <div>LoggedIn</div>}
+      {!user && <div>NotLoggedIn</div>}
       <LoginRegister></LoginRegister>
     </>
   );
