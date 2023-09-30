@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { useSignIn } from "react-auth-kit";
 
 export default function LoginForm() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const signIn = useSignIn();
   const [password, setPassword] = useState("");
   const [invalidCred, setInvalidCred] = useState(false);
@@ -14,25 +14,30 @@ export default function LoginForm() {
   const [redirect, setRedirect] = useState(false);
   const handleLogin = (ev) => {
     ev.preventDefault();
+    console.log(email + " " + password);
     axios
-      .get("/login", {
-        username,
+      .post("/login", {
+        email,
         password,
       })
       .then((res) => {
-        console.log(res);
         const data = res.data.userDoc;
-        console.log(data);
-        signIn({
-          token: res.data.token,
-          expiresIn: 3600,
-          tokenType: "Bearer",
-          authState: { data },
-        });
+        console.log(res.status);
 
-        console.log(res);
-        setUser(username);
-        setRedirect(true);
+        if (res.status == 200) {
+          signIn({
+            token: res.data.token,
+            expiresIn: 3600,
+            tokenType: "Bearer",
+            authState: { data },
+          });
+          console.log("Sign in successfull");
+          setUser(email);
+          setRedirect(true);
+          return;
+        }
+
+        setInvalidCred(true);
       })
       .catch((err) => {
         console.log(err);
@@ -50,13 +55,13 @@ export default function LoginForm() {
         <form className="flex flex-col gap-4 w-1/6" onSubmit={handleLogin}>
           <div>
             <div className="mb-2 block">
-              <Label htmlFor="email1" value="Username" />
+              <Label htmlFor="email1" value="email" />
             </div>
             <TextInput
-              value={username}
+              value={email}
               onChange={(ev) => {
                 setInvalidCred(false);
-                setUsername(ev.target.value);
+                setEmail(ev.target.value);
               }}
               id="email1"
               type="text"
