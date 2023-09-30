@@ -8,7 +8,7 @@ export default function Header() {
   // useNavigate
 
   return (
-    <Navbar fluid={true} rounded={true}>
+    <Navbar className="bg-emerald-900 text-white" fluid={true} rounded={true} >
       <Navbar.Brand href="/" className="gap-2">
         {/* <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -45,14 +45,11 @@ export default function Header() {
         )}
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link href="/navbars" active={true}>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="/navbars">About</Navbar.Link>
-        <Navbar.Link href="/navbars">Services</Navbar.Link>
-        <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-        <Navbar.Link href="/navbars">Contact</Navbar.Link>
+      <Navbar.Collapse className="text-white font-bold">
+        <Navbar.Link className="text-white font-bold" href="/login">About</Navbar.Link>
+        <Navbar.Link className="text-white font-bold" href="/navbars">Services</Navbar.Link>
+        <Navbar.Link className="text-white font-bold" href="/navbars">Pricing</Navbar.Link>
+        <Navbar.Link className="text-white font-bold" href="/navbars">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
